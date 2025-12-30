@@ -23,6 +23,7 @@ Unlike standard energy integrations, this recorder applies logic to determine th
 - Energy consumption sensors in Home Assistant for
   - `grid_import`, `grid_export`, `solar_production`, `battery_charge` and `battery_discharge`
   - `misc_consumption`; this can be a calculated sensor for the consumption of the whole house. Equal to `(grid_import - grid_export) + solar_production + (battery_discharge - battery_charge)`
+  - Optionally you can add other (metered) consumers; make sure to not include them in `misc_consumption`
 
 **1. Database Initialization**
 Before running the application, you must initialize your PostgreSQL database schema. The system uses a normalized table structure to store all measurement types (grid, solar, battery) in a single, efficient table.
