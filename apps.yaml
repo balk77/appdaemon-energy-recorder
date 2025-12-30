@@ -43,3 +43,8 @@ electricity_monitor:
       entity: "sensor.misc_devices_total"
       is_cost: true
       # No override -> Uses Import Price (Regular consumption)
+    
+    # - name: "some_other_consumer" # Do not change this nam
+    #  entity: "sensor.some_other_consumer"
+    #  is_cost: true
+      
