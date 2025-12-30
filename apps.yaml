@@ -1,0 +1,45 @@
+electricity_monitor:
+  module: electricity_recorder
+  class: ElectricityRecorder
+  
+  # Postgres Credentials
+  db_host: !secret postgres_host
+  db_name: "homeassistant"
+  db_user: !secret postgres_user
+  db_pass: !secret postgres_pass
+  
+  # Global Default Price (Use your IMPORT price here)
+  price_entity: "sensor.current_import_price"
+  
+  # Flexible Meter Configuration
+  meters:
+    - name: "grid_import" # Do not change this nam
+      entity: "sensor.energy_consumed_total"
+      is_cost: true
+      # No price_entity specified -> uses Global Default (Import Price)
+
+    - name: "grid_export" # Do not change this nam
+      entity: "sensor.energy_returned_total"
+      is_cost: false
+      # SPECIFIC OVERRIDE: Uses the Export Tariff
+      price_entity: "sensor.current_export_price" 
+
+    - name: "solar_production" # Do not change this nam
+      entity: "sensor.solar_total_yield"
+      is_cost: false
+      # No override -> Uses Import Price (Calculates Value Saved)
+
+    - name: "battery_charge" # Do not change this nam
+      entity: "sensor.battery_charge_total"
+      is_cost: true
+      # No override -> Uses Import Price (Cost to fill, relative to grid)
+
+    - name: "battery_discharge" # Do not change this nam
+      entity: "sensor.battery_discharge_total"
+      is_cost: false
+      # No override -> Uses Import Price (Value released, relative to grid)
+
+    - name: "misc_consumption" # Do not change this nam
+      entity: "sensor.misc_devices_total"
+      is_cost: true
+      # No override -> Uses Import Price (Regular consumption)
